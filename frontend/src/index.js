@@ -1,13 +1,44 @@
 import React from 'react';
 import ReactDOM from 'react-dom/client';
+import {
+  createBrowserRouter,
+  Outlet,
+  RouterProvider,
+} from "react-router-dom";
 import './index.css';
 import App from './App';
 import reportWebVitals from './reportWebVitals';
+import Navbar from './components/navbar';
+
+const HeaderLayout = () => (
+  <>
+    <header>
+      <Navbar />
+    </header>
+    <Outlet />
+  </>
+);
+
+const router = createBrowserRouter([
+  {
+    element: <HeaderLayout />,
+    children: [
+      {
+        path: "/",
+        element: <div>Hello world!</div>,
+      },
+      {
+        path: "/market",
+        element: <div>Hello Market!</div>,
+      }
+    ],
+  },
+]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <App />
+    <RouterProvider router={router} ><Navbar /></RouterProvider>{/* <App /> */}
   </React.StrictMode>
 );
 
