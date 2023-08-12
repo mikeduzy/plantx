@@ -2,6 +2,7 @@ import React from 'react';
 import PlantCard from '../PlantCard';
 import './Home.css'
 
+
 const plants = [
     {
         name: "Rose",

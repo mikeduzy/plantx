@@ -20,6 +20,14 @@ export default function Navbar() {
                             Market
                         </Typography>
                         
+                    </Link>,
+                    <Link
+                        to="/listyourplant"
+                    >
+                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                            Insert your plant
+                        </Typography>
+                        
                     </Link>
 
                     {/* <IconButton

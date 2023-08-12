@@ -9,6 +9,7 @@ import './index.css';
 import reportWebVitals from './reportWebVitals';
 import Navbar from './components/Navbar';
 import Home from './components/pages/Home';
+import Insertpage from './components/pages/Insertpage';
 
 const HeaderLayout = () => (
   <>
@@ -30,6 +31,11 @@ const router = createBrowserRouter([
       {
         path: "/market",
         element: <div>Hello Market!</div>,
+      },
+      {
+        path: "/listyourplant",
+        
+        Component: Insertpage,
       }
     ],
   },
