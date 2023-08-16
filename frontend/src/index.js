@@ -9,41 +9,41 @@ import Home from './components/pages/Home';
 import Insertpage from './components/pages/Insertpage';
 
 const HeaderLayout = () => (
-    <>
-        <header>
-            <Navbar />
-            {/* <Nav /> */}
-        </header>
-        <Outlet />
-    </>
+  <>
+    <header>
+      <Navbar />
+      {/* <Nav /> */}
+    </header>
+    <Outlet />
+  </>
 );
 
 const router = createBrowserRouter([
-    {
-        element: <HeaderLayout />,
-        children: [
-            {
-                path: '/',
-                Component: Home,
-            },
-            {
-                path: '/market',
-                element: <div>Hello Market!</div>,
-            },
-            {
-                path: '/listyourplant',
+  {
+    element: <HeaderLayout />,
+    children: [
+      {
+        path: '/',
+        Component: Home,
+      },
+      {
+        path: '/market',
+        element: <div>Hello Market!</div>,
+      },
+      {
+        path: '/listyourplant',
 
-                Component: Insertpage,
-            },
-        ],
-    },
+        Component: Insertpage,
+      },
+    ],
+  },
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
-    <React.StrictMode>
-        <RouterProvider router={router} />
-    </React.StrictMode>
+  <React.StrictMode>
+    <RouterProvider router={router} />
+  </React.StrictMode>
 );
 
 // If you want to start measuring performance in your app, pass a function
