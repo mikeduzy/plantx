@@ -1,101 +1,66 @@
 import * as React from 'react';
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Toolbar from '@mui/material/Toolbar';
-import Typography from '@mui/material/Typography';
-import Button from '@mui/material/Button';
-import IconButton from '@mui/material/IconButton';
 //import MenuIcon from '@mui/icons-material/Menu';
-import { Link } from "react-router-dom";
+import { Link } from 'react-router-dom';
+import './Navbar.css';
+import { useRef } from 'react';
+import { FaBars, FaTimes } from 'react-icons/fa';
 
 export default function Navbar() {
+    const navRef = useRef();
+
+    const showNav = () => {
+        navRef.current.classList.toggle('responsive_nav');
+    };
+
     return (
-        <Box sx={{ flexGrow: 1 }}>
-            <AppBar position="static">
-                <Toolbar>
-                    <Link
-                        to="/market"
-                    >
-                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                            Market
-                        </Typography>
-                        
-                    </Link>,
-                    <Link
-                        to="/listyourplant"
-                    >
-                        <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                            Insert your plant
-                        </Typography>
-                        
-                    </Link>
-
-                    {/* <IconButton
-                        size="large"
-                        edge="start"
-                        color="inherit"
-                        aria-label="menu"
-                        sx={{ mr: 2 }}
-                    >
-                        <MenuIcon />
-                    </IconButton> */}
-
-                    <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
-                        News
-                    </Typography>
-                    <Button color="inherit">Login</Button>
-                </Toolbar>
-            </AppBar>
-        </Box>
+        <header>
+            <h3>
+                <svg
+                    id="logo-15"
+                    width="49"
+                    height="48"
+                    viewBox="0 0 49 48"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                >
+                    {' '}
+                    <path
+                        d="M24.5 12.75C24.5 18.9632 19.4632 24 13.25 24H2V12.75C2 6.53679 7.03679 1.5 13.25 1.5C19.4632 1.5 24.5 6.53679 24.5 12.75Z"
+                        fill="#17CF97"
+                    ></path>{' '}
+                    <path
+                        d="M24.5 35.25C24.5 29.0368 29.5368 24 35.75 24H47V35.25C47 41.4632 41.9632 46.5 35.75 46.5C29.5368 46.5 24.5 41.4632 24.5 35.25Z"
+                        fill="#17CF97"
+                    ></path>{' '}
+                    <path
+                        d="M2 35.25C2 41.4632 7.03679 46.5 13.25 46.5H24.5V35.25C24.5 29.0368 19.4632 24 13.25 24C7.03679 24 2 29.0368 2 35.25Z"
+                        fill="#17CF97"
+                    ></path>{' '}
+                    <path
+                        d="M47 12.75C47 6.53679 41.9632 1.5 35.75 1.5H24.5V12.75C24.5 18.9632 29.5368 24 35.75 24C41.9632 24 47 18.9632 47 12.75Z"
+                        fill="#17CF97"
+                    ></path>{' '}
+                </svg>
+                PlantX
+            </h3>
+            <nav ref={navRef}>
+                <Link onClick={showNav} to="/">
+                    <span>Home</span>
+                </Link>
+                <Link to="/market" onClick={showNav}>
+                    <span>Market</span>
+                </Link>
+                <Link to="/listyourplant" onClick={showNav}>
+                    <span>Insert your plant</span>
+                </Link>
+                <span className="nav-btn-login">Login</span>
+                <button className="nav-btn nav-close-btn" onClick={showNav}>
+                    <FaTimes />
+                </button>
+            </nav>
+            <button className="nav-btn" onClick={showNav}>
+                <FaBars />
+            </button>
+        </header>
     );
 }
-
-
-// import { Link } from "react-router-dom";
-// import React, { useState } from 'react';
-
-// function Navbar() {
-//     const [click, setClick] = useState(false);
-//     const handleClick = () => setClick(!click);
-//     // const closeMobileMenu = () => setClick(false);
-//     return (
-//         <>
-//             <nav className="navbar">
-//                 <div className="navbar-container">
-
-//                     <Link
-//                         to="/market"
-//                     >
-                //                         Market
-                //                     </Link>;
-                
-//                     {/* <Link to="/" className="navbar-logo">
-//                         PlantX <i class="fa-solid fa-leaf"></i>
-//                     </Link>
-//                     <div className='menu-icon' onClick={handleClick}>
-//                         <i className={click ? 'fas fa-times' : 'fas fa-bars'} />
-//                     </div>
-//                     <ul className={click ? 'nav-menu active' : 'nav-menu'}>
-//                         <li className='nav-item'>
-//                             <Link to='/' className='nav-links' onClick={closeMobileMenu}>
-//                                 Home
-//                             </Link>
-//                         </li>
-//                         <li className='nav-item'>
-//                             <Link to='/about' className='nav-links' onClick={closeMobileMenu}>
-//                                About
-//                            </Link>
-//                        </li>
-//                         <li className='nav-item'>
-//                             <Link to='/sign-up' className='nav-links' onClick={closeMobileMenu}>
-//                                Sign up
-//                             </Link>
-//                         </li>
-//                     </ul> */}
-//                 </div>
-//             </nav>
-//         </>
-//     )
-// }
-
-//export default Navbar
