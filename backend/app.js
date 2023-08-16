@@ -1,5 +1,6 @@
 import cors from 'cors'; 
 import express from 'express';
+import run from './index.js';
 const app = express()
 const port = 4000
 
@@ -11,3 +12,4 @@ app.get('/testdata', (req, res) => {
 app.listen(port, () => {
   console.log(`Example app listening on port ${port}`)
 })
+await run()
