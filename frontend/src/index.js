@@ -1,12 +1,13 @@
-import React from 'react';
-import ReactDOM from 'react-dom/client';
-import { createBrowserRouter, Outlet, RouterProvider } from 'react-router-dom';
-import './index.css';
-import reportWebVitals from './reportWebVitals';
-import Navbar from './components/Navbar';
+import React from "react";
+import ReactDOM from "react-dom/client";
+import { createBrowserRouter, Outlet, RouterProvider } from "react-router-dom";
+import "./index.css";
+import reportWebVitals from "./reportWebVitals";
+import Navbar from "./components/Navbar";
 
-import Home from './components/pages/Home';
-import Insertpage from './components/pages/Insertpage';
+import Home from "./components/pages/Home";
+import Insertpage from "./components/pages/Insertpage";
+import Createnewplant from "./components/pages/Createnewplant";
 
 const HeaderLayout = () => (
   <>
@@ -23,23 +24,28 @@ const router = createBrowserRouter([
     element: <HeaderLayout />,
     children: [
       {
-        path: '/',
+        path: "/",
         Component: Home,
       },
       {
-        path: '/market',
+        path: "/market",
         element: <div>Hello Market!</div>,
       },
       {
-        path: '/listyourplant',
+        path: "/listyourplant",
 
         Component: Insertpage,
+      },
+      {
+        path: "/createnewplant",
+
+        Component: Createnewplant,
       },
     ],
   },
 ]);
 
-const root = ReactDOM.createRoot(document.getElementById('root'));
+const root = ReactDOM.createRoot(document.getElementById("root"));
 root.render(
   <React.StrictMode>
     <RouterProvider router={router} />
