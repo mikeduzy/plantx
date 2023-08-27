@@ -18,12 +18,13 @@ const Insertpage = () => {
   const [planttypes, setplanttypes] = useState("");
 
   useEffect(() => {
-    // GET request using axios inside useEffect React hook
     axios
-      .get("https://api.npms.io/v2/search?q=react")
-      .then((response) => setplanttypes(response.data.total));
-
-    // empty dependency array means this effect will only run once (like componentDidMount in classes)
+      .get("http://localhost:4000/Plants")
+      .then((response) => {
+        const plantNames = response.data.map((plantType) => plantType.name);
+        setplanttypes(plantNames);
+      })
+      .catch((error) => console.error(error));
   }, []);
 
   const handleConditionChange = (event) => {
@@ -90,9 +91,12 @@ const Insertpage = () => {
             label="plant"
             onChange={handlePlantChange}
           >
-            <MenuItem value={"plant1"}>{planttypes}</MenuItem>
-            <MenuItem value={"plant2"}>plant2</MenuItem>
-            <MenuItem value={"plant3"}>plant3</MenuItem>
+            {planttypes.length > 0 &&
+              planttypes.map((plantName) => (
+                <MenuItem key={plantName} value={plantName}>
+                  {plantName}
+                </MenuItem>
+              ))}
           </Select>
         </FormControl>
 
