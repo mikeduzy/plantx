@@ -1,7 +1,8 @@
-import React, { useState, useEffect } from "react";
+import React, { useState } from "react";
 import axios from "axios";
 import TextField from "@mui/material/TextField";
 import Button from "@mui/material/Button";
+import Box from "@mui/material/Box";
 
 const Createnewplant = () => {
   const [Plants, setPlants] = useState({
@@ -14,7 +15,41 @@ const Createnewplant = () => {
     watering_frequency: "",
   });
 
-  useEffect(() => {
+  // useEffect(() => {
+  //   if (Object.values(Plants).every((value) => value !== "")) {
+  //     axios
+  //       .post("http://localhost:4000/Plants", Plants)
+  //       .then((response) => {
+  //         console.log("Plant added successfully:", response.data);
+  //         setPlants({
+  //           name: "",
+  //           size: "",
+  //           location: "",
+  //           light_requirement: "",
+  //           description: "",
+  //           water_requirement: "",
+  //           watering_frequency: "",
+  //         });
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error adding plant:", error);
+  //       });
+  //   }
+  // }, [Plants]);
+
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setPlants((prevPlant) => ({
+      ...prevPlant,
+      [name]: value,
+    }));
+  };
+
+  // const handleFormSubmit = (event) => {
+  //   event.preventDefault();
+  // };
+
+  const onclickonSubmit = (event) => {
     if (Object.values(Plants).every((value) => value !== "")) {
       axios
         .post("http://localhost:4000/Plants", Plants)
@@ -34,23 +69,11 @@ const Createnewplant = () => {
           console.error("Error adding plant:", error);
         });
     }
-  }, [Plants]);
-
-  const handleInputChange = (event) => {
-    const { name, value } = event.target;
-    setPlants((prevPlant) => ({
-      ...prevPlant,
-      [name]: value,
-    }));
-  };
-
-  const handleFormSubmit = (event) => {
-    event.preventDefault();
   };
 
   return (
     <div>
-      <form onSubmit={handleFormSubmit}>
+      <Box sx={{ minWidth: 120, maxWidth: 400 }}>
         <TextField
           label="Name"
           name="name"
@@ -93,10 +116,10 @@ const Createnewplant = () => {
           value={Plants.watering_frequency}
           onChange={handleInputChange}
         />
-        <Button type="submit" variant="contained">
-          Add Plant
-        </Button>
-      </form>
+      </Box>
+      <Button type="submit" variant="contained" onClick={onclickonSubmit}>
+        Add Plant
+      </Button>
     </div>
   );
 };

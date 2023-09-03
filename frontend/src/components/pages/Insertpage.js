@@ -11,18 +11,49 @@ import axios from "axios";
 const Insertpage = () => {
   const [condition, setCondition] = useState("");
   const [swaps, setSwaps] = useState("");
-  const [yourname, setyourname] = useState("");
-  const [yourlocation, setyourlocation] = useState("");
-  const [size, setsize] = useState("");
-  const [plant, setplant] = useState("");
-  const [planttypes, setplanttypes] = useState("");
+  const [yourname, setYourname] = useState("");
+  const [yourlocation, setYourlocation] = useState("");
+  const [size, setSize] = useState("");
+  const [plant, setPlant] = useState("");
+  const [planttypes, setPlanttypes] = useState("");
+  const [price, setPrice] = useState("");
+  const [swapfor, setSwapfor] = useState("");
+  // const [Plantlisting, setPlantlisting] = useState({
+  //   name: "",
+  //   location: "",
+  //   size: "",
+  //   planttypename: "",
+  //   condition: "",
+  //   sellorswap: "",
+  // });
+
+  // useEffect(() => {
+  //   if (Object.values(Plantlisting).every((value) => value !== "")) {
+  //     axios
+  //       .post("http://localhost:4000/Plantlisting", Plantlisting)
+  //       .then((response) => {
+  //         console.log("Plantlisting added successfully:", response.data);
+  //         setPlantlisting({
+  //           name: "",
+  //           // location: "",
+  //           // size: "",
+  //           // planttypename: "",
+  //           // condition: "",
+  //           // sellorswap: "",
+  //         });
+  //       })
+  //       .catch((error) => {
+  //         console.error("Error adding plant:", error);
+  //       });
+  //   }
+  // }, [Plantlisting]);
 
   useEffect(() => {
     axios
       .get("http://localhost:4000/Plants")
       .then((response) => {
         const plantNames = response.data.map((plantType) => plantType.name);
-        setplanttypes(plantNames);
+        setPlanttypes(plantNames);
       })
       .catch((error) => console.error(error));
   }, []);
@@ -32,7 +63,7 @@ const Insertpage = () => {
   };
 
   const handlePlantChange = (event) => {
-    setplant(event.target.value);
+    setPlant(event.target.value);
   };
 
   const handleSwapChange = (event) => {
@@ -41,15 +72,80 @@ const Insertpage = () => {
   };
 
   const handleYournameChange = (event) => {
-    setyourname(event.target.value);
+    setYourname(event.target.value);
   };
 
   const handleYourlocationChange = (event) => {
-    setyourlocation(event.target.value);
+    setYourlocation(event.target.value);
   };
 
   const handleSizeChange = (event) => {
-    setsize(event.target.value);
+    setSize(event.target.value);
+  };
+
+  const handlePriceChange = (event) => {
+    setPrice(event.target.value);
+  };
+
+  const handleSwapforChange = (event) => {
+    setSwapfor(event.target.value);
+  };
+
+  //
+
+  // const handleInputChange = (event) => {
+  //   const { name, value } = event.target;
+  //   setPlantlisting((prevPlantlisting) => ({
+  //     ...prevPlantlisting,
+  //     [name]: value,
+  //   }));
+  // };
+
+  // const handleFormSubmit = (event) => {
+  //   event.preventDefault();
+  // };
+
+  //
+
+  const onclickonSubmit = (event) => {
+    const isPriceEmpty = price === "";
+    const isSwapforEmpty = swapfor === "";
+
+    if (
+      condition !== "" &&
+      swaps !== "" &&
+      yourname !== "" &&
+      yourlocation !== "" &&
+      size !== "" &&
+      plant !== ""
+    ) {
+      axios
+        .post("http://localhost:4000/Plantlisting", {
+          name: yourname,
+          location: yourlocation,
+          size: size,
+          planttypename: plant,
+          condition: condition,
+          sellorswap: swaps,
+          price: isPriceEmpty ? null : price,
+          swapoffer: isSwapforEmpty ? null : swapfor,
+        })
+        .then((response) => {
+          console.log("Plant added successfully:", response.data);
+
+          setCondition("");
+          setSwaps("");
+          setYourname("");
+          setYourlocation("");
+          setSize("");
+          setPlant("");
+          setPrice("");
+          setSwapfor("");
+        })
+        .catch((error) => {
+          console.error("Error adding plant:", error);
+        });
+    }
   };
 
   return (
@@ -60,8 +156,8 @@ const Insertpage = () => {
           label="yourname"
           variant="outlined"
           placeholder="Your Name"
-          value={yourname}
           onChange={handleYournameChange}
+          value={yourname}
         />
         <br />
         <TextField
@@ -71,6 +167,8 @@ const Insertpage = () => {
           placeholder="Your Location"
           value={yourlocation}
           onChange={handleYourlocationChange}
+          //value={Plantlisting.location}
+          //onChange={handleInputChange}
         />
         <br />
         <TextField
@@ -109,9 +207,8 @@ const Insertpage = () => {
             label="Age"
             onChange={handleConditionChange}
           >
-            <MenuItem value={10}>Happy Plant</MenuItem>
-            <MenuItem value={20}>Needs a little bit love</MenuItem>
-            <MenuItem value={30}>Needs much love</MenuItem>
+            <MenuItem value={"Happy Plant"}>Happy Plant</MenuItem>
+            <MenuItem value={"Sad Plant"}>Sad Plant</MenuItem>
           </Select>
         </FormControl>
 
@@ -135,6 +232,8 @@ const Insertpage = () => {
             label="Price" // Changed label to "Price"
             variant="outlined"
             placeholder="Price" // Changed placeholder to "Price"
+            value={price}
+            onChange={handlePriceChange}
             fullWidth
             style={{ marginTop: "20px" }}
           />
@@ -146,13 +245,16 @@ const Insertpage = () => {
             label="swapfor" // Changed label to "Price"
             variant="outlined"
             placeholder="Swap for..." // Changed placeholder to "Price"
+            value={swapfor}
+            onChange={handleSwapforChange}
             fullWidth
             style={{ marginTop: "20px" }}
           />
         )}
+        <Button variant="contained" onClick={onclickonSubmit}>
+          List your Plant now
+        </Button>
       </Box>
-
-      <Button variant="contained">List your Plant now</Button>
     </div>
   );
 };
