@@ -8,7 +8,7 @@ import Navbar from "./components/Navbar";
 import Home from "./components/pages/Home";
 import Insertpage from "./components/pages/Insertpage";
 import Createnewplant from "./components/pages/Createnewplant";
-
+import Market from "./components/pages/Market";
 const HeaderLayout = () => (
   <>
     <header>
@@ -29,7 +29,7 @@ const router = createBrowserRouter([
       },
       {
         path: "/market",
-        element: <div>Hello Market!</div>,
+        Component: Market,
       },
       {
         path: "/listyourplant",
