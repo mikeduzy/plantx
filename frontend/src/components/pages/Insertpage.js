@@ -18,35 +18,6 @@ const Insertpage = () => {
   const [planttypes, setPlanttypes] = useState("");
   const [price, setPrice] = useState("");
   const [swapfor, setSwapfor] = useState("");
-  // const [Plantlisting, setPlantlisting] = useState({
-  //   name: "",
-  //   location: "",
-  //   size: "",
-  //   planttypename: "",
-  //   condition: "",
-  //   sellorswap: "",
-  // });
-
-  // useEffect(() => {
-  //   if (Object.values(Plantlisting).every((value) => value !== "")) {
-  //     axios
-  //       .post("http://localhost:4000/Plantlisting", Plantlisting)
-  //       .then((response) => {
-  //         console.log("Plantlisting added successfully:", response.data);
-  //         setPlantlisting({
-  //           name: "",
-  //           // location: "",
-  //           // size: "",
-  //           // planttypename: "",
-  //           // condition: "",
-  //           // sellorswap: "",
-  //         });
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error adding plant:", error);
-  //       });
-  //   }
-  // }, [Plantlisting]);
 
   useEffect(() => {
     axios
@@ -90,22 +61,6 @@ const Insertpage = () => {
   const handleSwapforChange = (event) => {
     setSwapfor(event.target.value);
   };
-
-  //
-
-  // const handleInputChange = (event) => {
-  //   const { name, value } = event.target;
-  //   setPlantlisting((prevPlantlisting) => ({
-  //     ...prevPlantlisting,
-  //     [name]: value,
-  //   }));
-  // };
-
-  // const handleFormSubmit = (event) => {
-  //   event.preventDefault();
-  // };
-
-  //
 
   const onclickonSubmit = (event) => {
     const isPriceEmpty = price === "";
