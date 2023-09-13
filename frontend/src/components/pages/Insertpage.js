@@ -8,6 +8,12 @@ import FormControl from "@mui/material/FormControl";
 import Select from "@mui/material/Select";
 import axios from "axios";
 
+import Dialog from "@mui/material/Dialog";
+//import DialogActions from "@mui/material/DialogActions";
+import DialogContent from "@mui/material/DialogContent";
+import DialogContentText from "@mui/material/DialogContentText";
+import DialogTitle from "@mui/material/DialogTitle";
+
 const Insertpage = () => {
   const [condition, setCondition] = useState("");
   const [swaps, setSwaps] = useState("");
@@ -18,6 +24,8 @@ const Insertpage = () => {
   const [planttypes, setPlanttypes] = useState("");
   const [price, setPrice] = useState("");
   const [swapfor, setSwapfor] = useState("");
+  const [open, setOpen] = useState();
+  //const [pop, setPop] = useState(false);
 
   useEffect(() => {
     axios
@@ -63,6 +71,7 @@ const Insertpage = () => {
   };
 
   const onclickonSubmit = (event) => {
+    setOpen(true);
     const isPriceEmpty = price === "";
     const isSwapforEmpty = swapfor === "";
 
@@ -101,6 +110,10 @@ const Insertpage = () => {
           console.error("Error adding plant:", error);
         });
     }
+  };
+
+  const handleClose = () => {
+    setOpen(false);
   };
 
   return (
@@ -206,9 +219,19 @@ const Insertpage = () => {
             style={{ marginTop: "20px" }}
           />
         )}
+
         <Button variant="contained" onClick={onclickonSubmit}>
           List your Plant now
         </Button>
+        <Dialog open={open} onClose={handleClose}>
+          <DialogTitle>Congrats, you list your Plant</DialogTitle>
+          <DialogContent>
+            <DialogContentText>
+              Visit our marketplace to find your ad
+            </DialogContentText>
+            <Button onClick={handleClose}>ok</Button>
+          </DialogContent>
+        </Dialog>
       </Box>
     </div>
   );
