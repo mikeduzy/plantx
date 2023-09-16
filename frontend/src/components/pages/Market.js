@@ -99,28 +99,17 @@ const Market = () => {
             rowSpacing={1}
             columnSpacing={{ xs: 1, sm: 2, md: 3 }}
           >
-            {productData.length > 0 ? (
-              // Map through the product data and render each product card
-              productData.map((product, index) => (
-                <PlantCard key={index} product={product} />
+            {filteredProducts.length > 0 ? (
+              // Map through the filtered product data and render each product card
+              filteredProducts.map((product, index) => (
+                <PlantCard key={index} product={product}></PlantCard>
               ))
             ) : (
-              // Show a loading message while data is being fetched
-              <p>Loading...</p>
+              // Show a message if no matching products are found
+              <p>No matching products found.</p>
             )}
           </Grid>
         </Box>
-
-        {/* Render product cards */}
-        {filteredProducts.length > 0 ? (
-          // Map through the filtered product data and render each product card
-          filteredProducts.map((product, index) => (
-            <PlantCard key={index} product={product}></PlantCard>
-          ))
-        ) : (
-          // Show a message if no matching products are found
-          <p>No matching products found.</p>
-        )}
       </div>
       {/* {productData.length > 0 ? (
                 // Map through the product data and render each product card

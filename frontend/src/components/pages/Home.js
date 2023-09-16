@@ -55,7 +55,7 @@ function Home() {
           }));
 
           // Update the state with the formatted product data
-          setProductData(products);
+          setProductData(products.splice(0, 4));
         })
       )
       .catch((error) => {
