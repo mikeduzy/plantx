@@ -21,7 +21,7 @@ header {
 	justify-content: space-between;
 	height: 80px;
 	padding: 0 2rem;
-	background-color: #29335c;
+	background-color: #1a3f36;;
 	color: #eee;
     width: 100%;
 }
@@ -76,7 +76,7 @@ nav {
 		align-items: center;
 		justify-content: center;
 		gap: 1.5rem;
-		background-color: #29335c;
+		background-color: #1a3f36;;
 		transition: 1s;
 		z-index:1000;
 	}

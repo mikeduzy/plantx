@@ -7,7 +7,6 @@ import Button from '@mui/material/Button';
 import PriceSlider from './PriceSlider';
 //options to choose categories
 export const CategoryList = [
-
     { id: 1, value: 'forfree', label: '🌻swap' },
     { id: 1, value: 'sell', label: '🌿buy' },
 ];
@@ -80,7 +79,7 @@ const FilterCategories = ({
     //set onSubmit button click
     const handleFiltersOnButtonClick = (e) => {
         e.preventDefault();
-        applyFilters();
+        // applyFilters();
     };
 
     //uses for set colors for material UI elements
