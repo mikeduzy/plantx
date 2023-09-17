@@ -1,77 +1,68 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
+
 import PlantCard from "../PlantCard";
+import axios from "axios";
 import "./Home.css";
 //import { styled } from "@mui/material/styles"; //BK09/03: error thats why i commented this out
 import Grid from "@mui/material/Unstable_Grid2";
 import Paper from "@mui/material/Paper";
 import Box from "@mui/material/Box";
-
-const plants = [
-  {
-    name: "Rose",
-    scientific_name: "Rosa",
-    family: "Rosaceae",
-    description: "A classic flowering shrub with a wide range of colors.",
-    care_instructions: "Requires well-drained soil and regular watering.",
-    origin: "Various",
-    sunlight: "Full sun",
-    watering: "Regular",
-  },
-  {
-    name: "Lavender",
-    scientific_name: "Lavandula",
-    family: "Lamiaceae",
-    description: "A fragrant herb known for its calming properties.",
-    care_instructions: "Prefers well-drained soil and full sunlight.",
-    origin: "Mediterranean region",
-    sunlight: "Full sun",
-    watering: "Moderate",
-  },
-  // ... Continue with more plant examples ...
-  {
-    name: "Spider Plant",
-    scientific_name: "Chlorophytum comosum",
-    family: "Asparagaceae",
-    description: "An easy-to-care-for indoor plant with arching leaves.",
-    care_instructions:
-      "Thrives in various light conditions and prefers evenly moist soil.",
-    origin: "Southern Africa",
-    sunlight: "Indirect light to low light",
-    watering: "Moderate",
-  },
-  {
-    name: "Bamboo",
-    scientific_name: "Bambusoideae",
-    family: "Poaceae",
-    description: "A fast-growing grass with numerous uses and varieties.",
-    care_instructions: "Requires well-draining soil and regular watering.",
-    origin: "Various",
-    sunlight: "Full sun to part shade",
-    watering: "Regular",
-  },
-];
-
-// const Item = styled(Paper)(({ theme }) => ({
-//     backgroundColor: theme.palette.mode === 'dark' ? '#1A2027' : '#fff',
-//     ...theme.typography.body2,
-//     padding: theme.spacing(1),
-//     textAlign: 'center',
-//     color: theme.palette.text.secondary,
-// }));
+import Inquirybutton from "../Inquirybutton";
 
 function Home() {
-  const listItems = plants.map((plant) => (
-    <Paper>
-      <PlantCard
-        name={plant.name}
-        description={plant.description}
-        care_instructions={plant.care_instructions}
-        origin={plant.origin}
-        sunlight={plant.sunlight}
-        watering={plant.watering}
-      />
-    </Paper>
-  ));
+  const [productData, setProductData] = useState("");
+  const [selectCategory, setSelectCategory] = useState(null);
+  const handleSelectCategory = (event, value) =>
+    !value ? null : setSelectCategory(value);
+
+  //  fetch data
+  useEffect(() => {
+    axios
+      .all([
+        axios.get("http://localhost:4000/Plants"),
+        axios.get("http://localhost:4000/Plantlisting"),
+      ])
+      .then(
+        axios.spread((plantsResponse, plantListingResponse) => {
+          // Extract data from the responses
+          const plants = plantsResponse.data;
+          const plantListing = plantListingResponse.data;
+
+          // Map the fetched data to a more readable product format
+          const products = plantListing.map((item) => ({
+            plantName: item.planttypename,
+            description:
+              plants.find((plant) => plant.name === item.planttypename)
+                ?.description || "",
+            condition: item.condition,
+            plantSize: item.size,
+            origin:
+              plants.find((plant) => plant.name === item.planttypename)
+                ?.location || "",
+            careInstruction: {
+              watering:
+                plants.find((plant) => plant.name === item.planttypename)
+                  ?.water_requirement || "",
+              wateringFrequency:
+                plants.find((plant) => plant.name === item.planttypename)
+                  ?.watering_frequency || "",
+            },
+            profileName: item.name,
+            location: item.location,
+            sellOrSwap: item.sellorswap,
+            price: item.price || null,
+            swapFor: item.swapoffer || null,
+          }));
+
+          // Update the state with the formatted product data
+          setProductData(products.splice(0, 4));
+        })
+      )
+      .catch((error) => {
+        // Handle errors if data fetching fails
+        console.error("Error fetching data:", error);
+      });
+  }, []);
 
   return (
     <div>
@@ -80,11 +71,45 @@ function Home() {
       </div>
       <Box sx={{ width: "100%" }}>
         <Grid container rowSpacing={1} columnSpacing={{ xs: 1, sm: 2, md: 3 }}>
-          {listItems}
+          {productData.length > 0 ? (
+            // Map through the product data and render each product card
+            productData.map((product, index) => (
+              <PlantCard key={index} product={product} />
+            ))
+          ) : (
+            // Show a loading message while data is being fetched
+            <p>Loading...</p>
+          )}
         </Grid>
       </Box>
     </div>
   );
 }
+
+// // Home component
+// const Home = () => {
+//   return (
+//     <div>
+//       <div>
+//         <span>Category</span>
+//         <FilterCategories
+//           options={CategoryList}
+//           value={selectCategory}
+//           selectedToggle={handleSelectCategory}
+//         />
+//       </div>
+//       */
+//       {productData.length > 0 ? (
+//         // Map through the product data and render each product card
+//         productData.map((product, index) => (
+//           <PlantCard key={index} product={product} />
+//         ))
+//       ) : (
+//         // Show a loading message while data is being fetched
+//         <p>Loading...</p>
+//       )}
+//     </div>
+//   );
+// };
 
 export default Home;

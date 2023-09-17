@@ -1,47 +1,53 @@
-import * as React from 'react';
-import Card from '@mui/material/Card';
-import CardActions from '@mui/material/CardActions';
-import CardContent from '@mui/material/CardContent';
-import CardMedia from '@mui/material/CardMedia';
-import Button from '@mui/material/Button';
-import Typography from '@mui/material/Typography';
+import * as React from "react";
+import Card from "@mui/material/Card";
+import CardActions from "@mui/material/CardActions";
+import CardContent from "@mui/material/CardContent";
+import CardMedia from "@mui/material/CardMedia";
+import Button from "@mui/material/Button";
+import Typography from "@mui/material/Typography";
+import Inquirybutton from "./Inquirybutton";
 
 export default function PlantCard(props) {
   return (
     <Card sx={{ maxWidth: 345 }}>
       <CardMedia
         sx={{ height: 140 }}
-      // image="/static/images/cards/contemplative-reptile.jpg"
-      // title="green iguana"
+        // image="/static/images/cards/contemplative-reptile.jpg"
+        // title="green iguana"
       />
       <CardContent>
-        <Typography gutterBottom variant="h5" component="div">
-          Plantname: {props.name}
-        </Typography>
-        <br />
-        <Typography variant="body2" color="text.secondary">
-          <b>Description:</b> {props.description}
-        </Typography>
-        <br />
-        <Typography variant="body2" color="text.secondary">
-          <b>Care Instructions:</b> {props.care_instructions}
-        </Typography>
-        <br />
-        <Typography variant="body2" color="text.secondary">
-          <b>Origin:</b> {props.origin}
-        </Typography>
-        <br />
-        <Typography variant="body2" color="text.secondary">
-          <b>Sunlight:</b> {props.sunlight}
-        </Typography>
-        <br />
-        <Typography variant="body2" color="text.secondary">
-          <b>Watering:</b> {props.watering}
-        </Typography>
+        <div>Plant Name: {props.product.plantName}</div>
+
+        <div>Description: {props.product.description}</div>
+
+        <div>Condition: {props.product.condition}</div>
+
+        <div>Plant Size: {props.product.plantSize}</div>
+
+        <div>Origin: {props.product.origin}</div>
+
+        <div>
+          Care Instructions - Watering:{" "}
+          {props.product.careInstruction?.watering}, Frequency:{" "}
+          {props.product.careInstruction?.wateringFrequency}
+        </div>
+
+        <div>Profile Name: {props.product.profileName}</div>
+
+        <div>Location: {props.product.location}</div>
+
+        <div>Sell or Swap: {props.product.sellOrSwap}</div>
+
+        {props.product.price !== null && (
+          <div>Price: {props.product.price}</div>
+        )}
+
+        {props.product.swapFor !== null && (
+          <div>Swap for: {props.product.swapFor}</div>
+        )}
       </CardContent>
       <CardActions>
-        <Button size="small">Swap</Button>
-        <Button size="small">Sell</Button>
+        <Inquirybutton />
       </CardActions>
     </Card>
   );
