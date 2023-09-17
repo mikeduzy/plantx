@@ -8,7 +8,13 @@ const useStyles = makeStyles({
         padding: '0 15px',
     },
     rail: {
-        color: `rgba(0, 0, 0, 0.36)`,
+        color: `rgba(104, 209, 152, 0.36)`,
+    },
+    track: {
+        color: '#68d198',
+    },
+    thumb: {
+        color: '#68d198',
     },
 });
 
@@ -25,6 +31,8 @@ const PriceSlider = ({ value, changePrice }) => {
                 max={100}
                 classes={{
                     rail: classes.rail,
+                    track: classes.track,
+                    thumb: classes.thumb,
                 }}
             />
         </div>

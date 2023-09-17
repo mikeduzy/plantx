@@ -7,8 +7,8 @@ import Button from '@mui/material/Button';
 import PriceSlider from './PriceSlider';
 //options to choose categories
 export const CategoryList = [
-    { id: 1, value: 'forfree', label: 'swap' },
-    { id: 1, value: 'sell', label: 'sell' },
+    { id: 1, value: 'forfree', label: '🌻swap' },
+    { id: 1, value: 'sell', label: '🌿buy' },
 ];
 
 const useStyles = makeStyles({
@@ -17,15 +17,19 @@ const useStyles = makeStyles({
     },
     toggle: {
         '&.Mui-selected': {
-            background: '#000',
+            background: '#49936b',
             color: '#fff',
         },
         '&.MuiToggleButton-root': {
             '&:hover': {
-                background: '#000',
+                background: '#49936b',
                 color: '#fff',
             },
         },
+    },
+    filterBth: {
+        background: '#000',
+        color: '#fff',
     },
 });
 //options to choose how much light does your plant get
@@ -33,7 +37,7 @@ const FilterCategories = ({
     options,
     selectedCategory,
     selectToggle,
-    productData,
+    applyFilters,
 }) => {
     const [light, setLight] = useState([
         { id: 1, checked: false, label: 'Low' },
@@ -62,21 +66,20 @@ const FilterCategories = ({
         setSelectedPrice(value);
     };
 
-    const applyFilters = () => {
-        let updatedFilteredList = productData;
-        if (selectedCategory) {
-            //filter thought the objects and mapping for readable data
-            updatedFilteredList = updatedFilteredList
-                .filter((item) => item.sellOrSwap === selectedCategory)
-                .map((elem) => elem.plantName);
-            console.log(updatedFilteredList);
-        }
-    };
+    // const applyFilters = () => {
+    //     let updatedFilteredList = productData;
+    //     if (selectedCategory) {
+    //         //Filter product by category and mapping for readable data
+    //         updatedFilteredList = updatedFilteredList
+    //             .filter((item) => item.sellOrSwap === selectedCategory)
+    //             .map((elem) => elem.plantName);
+    //     }
+    // };
 
     //set onSubmit button click
     const handleFiltersOnButtonClick = (e) => {
         e.preventDefault();
-        applyFilters();
+        // applyFilters();
     };
 
     //uses for set colors for material UI elements
@@ -119,7 +122,11 @@ const FilterCategories = ({
                     />
                 ))}
             </div>
-            <Button onClick={handleFiltersOnButtonClick} variant="contained">
+            <Button
+                className={classes.filterBth}
+                onClick={handleFiltersOnButtonClick}
+                variant="contained"
+            >
                 Submit
             </Button>
         </>
