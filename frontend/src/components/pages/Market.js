@@ -49,7 +49,7 @@ const ProductCard = ({ product }) => {
 const Market = () => {
     const [productData, setProductData] = useState([]);
     const [searchQuery, setSearchQuery] = useState('');
-    const [selectCategory, setSelectCategory] = useState(null);
+    const [selectCategory, setSelectCategory] = useState(CategoryList);
     const handleSelectCategory = (event, value) =>
         !value ? null : setSelectCategory(value);
     console.log(selectCategory);
@@ -111,10 +111,15 @@ const Market = () => {
         product.plantName.toLowerCase().includes(searchQuery.toLowerCase())
     );
 
+    //Filter product by category
+    const filteredProductByCategory = productData.filter(
+        (item) => item.sellOrSwap === selectCategory
+    );
+
     return (
         <div>
-            <div>
-                <span>Category</span>
+            <div class="filter-form-container">
+                <span>Do you want swap or buy?</span>
                 <FilterCategories
                     options={CategoryList}
                     selectedCategory={selectCategory}
@@ -141,7 +146,11 @@ const Market = () => {
                     // Show a message if no matching products are found
                     <p>No matching products found.</p>
                 )}
+                {filteredProductByCategory.map((product, index) => {
+                    return <ProductCard key={index} product={product} />;
+                })}
             </div>
+
             {/* {productData.length > 0 ? (
                 // Map through the product data and render each product card
                 productData.map((product, index) => (
