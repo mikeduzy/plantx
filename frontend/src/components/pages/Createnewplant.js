@@ -61,6 +61,7 @@ const Createnewplant = () => {
           },
         }}
       >
+        <h1> Add Plant Information to our Database</h1>
         <TextField
           label="Name"
           name="name"
