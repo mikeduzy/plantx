@@ -15,28 +15,6 @@ const Createnewplant = () => {
     watering_frequency: "",
   });
 
-  // useEffect(() => {
-  //   if (Object.values(Plants).every((value) => value !== "")) {
-  //     axios
-  //       .post("http://localhost:4000/Plants", Plants)
-  //       .then((response) => {
-  //         console.log("Plant added successfully:", response.data);
-  //         setPlants({
-  //           name: "",
-  //           size: "",
-  //           location: "",
-  //           light_requirement: "",
-  //           description: "",
-  //           water_requirement: "",
-  //           watering_frequency: "",
-  //         });
-  //       })
-  //       .catch((error) => {
-  //         console.error("Error adding plant:", error);
-  //       });
-  //   }
-  // }, [Plants]);
-
   const handleInputChange = (event) => {
     const { name, value } = event.target;
     setPlants((prevPlant) => ({
@@ -44,10 +22,6 @@ const Createnewplant = () => {
       [name]: value,
     }));
   };
-
-  // const handleFormSubmit = (event) => {
-  //   event.preventDefault();
-  // };
 
   const onclickonSubmit = (event) => {
     if (Object.values(Plants).every((value) => value !== "")) {
@@ -73,7 +47,20 @@ const Createnewplant = () => {
 
   return (
     <div>
-      <Box sx={{ minWidth: 120, maxWidth: 400 }}>
+      <Box
+        sx={{
+          minWidth: 120,
+          maxWidth: 400,
+          margin: "0 auto",
+          padding: "20px",
+          textAlign: "center",
+          linespacing: "27px",
+
+          "& > *": {
+            marginBottom: "30px",
+          },
+        }}
+      >
         <TextField
           label="Name"
           name="name"
@@ -117,7 +104,12 @@ const Createnewplant = () => {
           onChange={handleInputChange}
         />
       </Box>
-      <Button type="submit" variant="contained" onClick={onclickonSubmit}>
+      <Button
+        style={{ display: "block", margin: "0 auto" }}
+        type="submit"
+        variant="contained"
+        onClick={onclickonSubmit}
+      >
         Add Plant
       </Button>
     </div>

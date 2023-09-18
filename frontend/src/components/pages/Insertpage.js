@@ -9,7 +9,7 @@ import Select from "@mui/material/Select";
 import axios from "axios";
 
 import Dialog from "@mui/material/Dialog";
-//import DialogActions from "@mui/material/DialogActions";
+
 import DialogContent from "@mui/material/DialogContent";
 import DialogContentText from "@mui/material/DialogContentText";
 import DialogTitle from "@mui/material/DialogTitle";
@@ -25,7 +25,6 @@ const Insertpage = () => {
   const [price, setPrice] = useState("");
   const [swapfor, setSwapfor] = useState("");
   const [open, setOpen] = useState();
-  //const [pop, setPop] = useState(false);
 
   useEffect(() => {
     axios
@@ -118,7 +117,19 @@ const Insertpage = () => {
 
   return (
     <div className="insertcomp">
-      <Box sx={{ minWidth: 120, maxWidth: 400 }}>
+      <Box
+        sx={{
+          minWidth: 120,
+          maxWidth: 400,
+          margin: "0 auto",
+          padding: "20px",
+          textAlign: "center",
+          linespacing: "30px",
+          "& > *": {
+            marginBottom: "10px",
+          },
+        }}
+      >
         <TextField
           id="yourname"
           label="yourname"
@@ -135,8 +146,6 @@ const Insertpage = () => {
           placeholder="Your Location"
           value={yourlocation}
           onChange={handleYourlocationChange}
-          //value={Plantlisting.location}
-          //onChange={handleInputChange}
         />
         <br />
         <TextField
